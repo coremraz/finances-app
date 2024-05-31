@@ -8,6 +8,10 @@
 
     </head>
     <body>
-    <x-spending :attr ="['name' => $name, 'cost' => $cost]"/>
+    <x-totalSpendings total="{{$totalSum}}"/>
+    @foreach($allSpendings as $spending)
+        <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}"/>
+    @endforeach
+    <x-addSpending/>
     </body>
 </html>

@@ -8,10 +8,24 @@ class SpendingController extends Controller
 {
     function index()
     {
-        $data = Spending::all();
+        $allSpendings = Spending::latest()->paginate(3);
+        $allCosts = Spending::select('cost')->get();
+        $totalSum = 0;
 
-        $name = $data[0]->name;
-        $cost = $data[0]->cost;
-        return view('welcome', compact('name', 'cost'));
+        foreach ($allCosts as $spending) {
+            $totalSum += $spending->cost;
+        }
+        return view('welcome', compact('allSpendings', 'totalSum'));
+    }
+
+    function store(Request $request)
+    {
+        $spending = new Spending;
+
+        $spending->name = $request->name;
+        $spending->cost = $request->cost;
+
+        $spending->save();
+       return redirect('/');
     }
 }
