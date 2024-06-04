@@ -10,7 +10,7 @@
     <body>
     <x-totalSpendings total="{{$totalSum}}"/>
     @foreach($allSpendings as $spending)
-        <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}"/>
+        <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}" date="{{ $spending->created_at }}"/>
     @endforeach
     <x-addSpending/>
     </body>
