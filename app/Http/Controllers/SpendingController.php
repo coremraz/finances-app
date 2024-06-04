@@ -21,7 +21,10 @@ class SpendingController extends Controller
     function store(Request $request)
     {
         $spending = new Spending;
-
+        $request->validate([
+           'cost' => 'required|numeric',
+           'name' => 'required'
+        ]);
         $spending->name = $request->name;
         $spending->cost = $request->cost;
 

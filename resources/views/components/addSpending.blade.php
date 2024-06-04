@@ -4,8 +4,14 @@
     @csrf {{ csrf_field() }}
     <label class="text-amber-50">Name:</label>
     <input class="border-[2px] border-gray-800 w-11/12 rounded-xl outline-none" type="text" name="name"/>
+    @error('name')
+    <p class="text-red-500 font-semibold text-xs p-3">{{$message}}</p>
+    @enderror
     <label class="text-amber-50">Cost:</label>
     <input class="border-[2px] border-gray-800 w-11/12 rounded-xl outline-none" type="text" name="cost"/>
+    @error('cost')
+    <p class="text-red-500 font-semibold text-xs p-3">{{$message}}</p>
+    @enderror
     <button class="text-amber-50 font-bold">Add</button>
 </form>
 
