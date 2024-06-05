@@ -9,8 +9,10 @@
     </head>
     <body>
     <x-totalSpendings total="{{$totalSum}}"/>
+    <x-button><a href="/desc">⬇️</a></x-button>
+    <x-button><a href="/asc">⬆️</a>️</x-button>
     @foreach($allSpendings as $spending)
-        <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}" date="{{ $spending->created_at }}"/>
+        <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}" date="{{ $spending->created_at }}" category="{{$spending->category}}"/>
     @endforeach
     <x-addSpending/>
     </body>

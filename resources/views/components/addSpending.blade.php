@@ -12,6 +12,12 @@
     @error('cost')
     <p class="text-red-500 font-semibold text-xs p-3">{{$message}}</p>
     @enderror
+    <label class="text-amber-50">Category:</label>
+    <select class="border-[2px] border-gray-800 w-11/12 rounded-xl outline-none" name="category">
+        <option value="Еда">Еда</option>
+        <option value="Техника">Техника</option>
+        <option value="Напитки">Напитки</option>
+    </select>
     <button class="text-amber-50 font-bold">Add</button>
 </form>
 
