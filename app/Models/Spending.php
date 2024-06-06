@@ -9,4 +9,5 @@ class Spending extends Model
 {
     use HasFactory;
 
+protected $guarded = [];
 }

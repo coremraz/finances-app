@@ -22,11 +22,15 @@ class SpendingController extends Controller
            'name' => 'required',
             'category' => 'required'
         ]);
-        $spending->name = $request->name;
-        $spending->cost = $request->cost;
-        $spending->category = $request->category;
 
+        $spending->fill([
+           'name' =>  $request->name,
+           'cost' =>  $request->cost,
+           'category' =>  $request->category,
+        ]);
         $spending->save();
+
+
        return redirect('/');
     }
 
