@@ -52,8 +52,18 @@ class SpendingController extends Controller
         return view('welcome', compact('allSpendings', 'totalSum'));
     }
 
-    function dateSort()
+    function delete(Request $request)
     {
+        $spending = Spending::find($request->id);
+        $spending->delete();
+        return redirect('/');
+    }
 
+    function search(Request $request)
+    {
+        $allSpendings = Spending::where('name', 'like', '%' . $request->search . '%')->get();
+        $totalSum = 1337;
+
+        return view('welcome', compact('allSpendings', 'totalSum'));
     }
 }
