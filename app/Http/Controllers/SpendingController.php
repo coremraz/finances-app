@@ -24,7 +24,7 @@ class SpendingController extends Controller
         ]);
 
         $spending->fill([
-           'name' =>  $request->name,
+           'name' =>  $this->mb_ucfirst($request->name),
            'cost' =>  $request->cost,
            'category' =>  $request->category,
         ]);
@@ -61,9 +61,22 @@ class SpendingController extends Controller
 
     function search(Request $request)
     {
-        $allSpendings = Spending::where('name', 'like', '%' . $request->search . '%')->get();
+        //победить sqlite не удалось, никакие способы поиска без учета регистра не работают
+
+        $allSpendings = Spending::where('name', 'like', '%'. $this->mb_ucfirst($request->search) . "%")->get();
         $totalSum = 1337;
 
         return view('welcome', compact('allSpendings', 'totalSum'));
+    }
+
+    private  function mb_ucfirst($string) {
+        /**
+         * Мультибайтовый аналог ucfirst
+         * @param  string Строка в мультибайтовой кодировке
+         * @return string Строка с первым символом, переведенным в верхний регистр
+         */
+
+        $string = mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1);
+        return $string;
     }
 }
