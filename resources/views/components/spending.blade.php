@@ -6,7 +6,7 @@
             @method("DELETE")
             <button class="text-red-500 cursor-pointer">✏️</button>
         </form>
-        <form action="/{{$id}}/delete" >
+        <form action="{{route("delete", $id)}}" >
             @method("DELETE")
             <button class="text-red-500 cursor-pointer">X</button>
         </form>
