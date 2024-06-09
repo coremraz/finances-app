@@ -1,5 +1,6 @@
 @props(['total' => '1337'])
 
-<div class="flex flex-col items-center w-1/6 bg-gray-800 rounded-xl m-4 p-4">
-    <h1 class="text-amber-50 font-bold">Total sum: {{$total . "₽"}}</h1>
+<div class="flex flex-col w-1/6 bg-gray-50 drop-shadow-lg rounded-xl m-4 p-5">
+    <span class="mx-auto">Total:</span>
+    <h1 class="text-gray-700 mx-auto text-2xl font-bold">{{"₽" . $total}}</h1>
 </div>

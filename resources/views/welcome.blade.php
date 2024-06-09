@@ -10,8 +10,10 @@
 <body>
 <x-searchSpending/>
 <x-totalSpendings total="{{$totalSum}}"/>
-<x-button><a href="/desc">⬇️</a></x-button>
-<x-button><a href="/asc">⬆️</a>️</x-button>
+<x-button><a href="{{ route('sort', ['filter' => 'desc']) }}">⬇️</a></x-button>
+<x-button><a href="{{ route('sort', ['filter' => 'asc']) }}">⬆️</a>️</x-button>
+<x-button><a href="{{ route('sort', ['filter' => 'dateAsc']) }}">Date ⬆️</a>️</x-button>
+<x-button><a href="{{ route('sort', ['filter' => 'dateDesc']) }}">Date ⬇️️</a>️</x-button>
 @foreach($allSpendings as $spending)
     <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}" date="{{ $spending->created_at }}"
                 category="{{$spending->category}}" id="{{$spending->id}}"/>
