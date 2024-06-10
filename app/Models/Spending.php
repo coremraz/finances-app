@@ -9,5 +9,10 @@ class Spending extends Model
 {
     use HasFactory;
 
-protected $guarded = [];
+    protected $guarded = [];
+
+    public static function totalSum()
+    {
+        return self::sum('cost');
+    }
 }

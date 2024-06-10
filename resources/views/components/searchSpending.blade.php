@@ -1,6 +1,6 @@
-<form action="/search" method="GET">
-    <div class="flex bg-gray-800 w-64 p-2 rounded">
-        <input type="text" class="rounded" name="search"/>
-        <button type="submit" class="ml-2 font-bold text-amber-50">Search</button>
+<form action="{{route('search')}}" method="GET">
+    <div class="flex flex-col w-56 bg-gray-50 drop-shadow-lg rounded-xl m-4 p-2">
+        <x-input type="text" name="by"/>
+        <x-button type="submit">Search</x-button>
     </div>
 </form>

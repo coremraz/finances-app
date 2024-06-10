@@ -9,7 +9,7 @@ class SpendingController extends Controller
     function index()
     {
         $allSpendings = Spending::latest()->paginate(3);
-        $totalSum = Spending::sum('cost');
+        $totalSum = Spending::totalSum();
 
         return view('welcome', compact('allSpendings', 'totalSum'));
     }
@@ -34,14 +34,18 @@ class SpendingController extends Controller
        return redirect('/');
     }
 
-    function costSort(Request $request)
+    function sort(Request $request)
     {
-        $sortBy = $request->id;
+        $sortBy = $request->filter;
 
         if ($sortBy == "asc") {
             $allSpendings = Spending::latest()->paginate(5)->SortBy('cost');
         } else if ($sortBy == "desc") {
             $allSpendings = Spending::latest()->paginate(5)->SortByDesc('cost');
+        } else if ($sortBy == "dateAsc") {
+            $allSpendings = Spending::latest()->paginate(5)->SortBy('created_at');
+        } else if ($sortBy == "dateDesc") {
+            $allSpendings = Spending::latest()->paginate(5)->SortByDesc('created_at');
         } else {
             // Handle the case where $sortBy is not "asc" or "desc"
             // You might want to return an error or default sorting
@@ -62,7 +66,7 @@ class SpendingController extends Controller
     {
         //победить sqlite не удалось, никакие способы поиска без учета регистра не работают
 
-        $allSpendings = Spending::where('name', 'like', '%'. $this->mb_ucfirst($request->search) . "%")->get();
+        $allSpendings = Spending::where('name', 'like', '%'. $this->mb_ucfirst($request->by) . "%")->get()->WithQueryParamet;
         $totalSum = 1337;
 
         return view('welcome', compact('allSpendings', 'totalSum'));
