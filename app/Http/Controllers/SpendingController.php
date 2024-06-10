@@ -52,9 +52,8 @@ class SpendingController extends Controller
         return view('welcome', compact('allSpendings', 'totalSum'));
     }
 
-    function delete(Request $request)
+    function delete(Spending $spending)
     {
-        $spending = Spending::find($request->id);
         $spending->delete();
         return redirect('/');
     }
