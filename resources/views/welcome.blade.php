@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @vite('resources/css/app.css')
-    <title>Laravel</title>
+@extends('layouts.base');
 
-</head>
-<body>
-<x-searchSpending/>
-<x-totalSpendings total="{{$totalSum}}"/>
-<x-button><a href="{{ route('sort', ['filter' => 'desc']) }}">⬇️</a></x-button>
-<x-button><a href="{{ route('sort', ['filter' => 'asc']) }}">⬆️</a>️</x-button>
-<x-button><a href="{{ route('sort', ['filter' => 'dateAsc']) }}">Date ⬆️</a>️</x-button>
-<x-button><a href="{{ route('sort', ['filter' => 'dateDesc']) }}">Date ⬇️️</a>️</x-button>
-@foreach($allSpendings as $spending)
-    <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}" date="{{ $spending->created_at }}"
-                category="{{$spending->category}}" id="{{$spending->id}}"/>
-@endforeach
-<x-addSpending/>
-</body>
-</html>
+@section('content')
+    <x-searchSpending/>
+    <x-totalSpendings total="{{$totalSum}}"/>
+    <x-filters/>
+    @foreach($allSpendings as $spending)
+        <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}" date="{{ $spending->created_at }}"
+                    category="{{$spending->category}}" id="{{$spending->id}}"/>
+    @endforeach
+    <x-addSpending/>
+@endsection
+
+
