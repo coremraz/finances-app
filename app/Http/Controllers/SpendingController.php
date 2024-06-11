@@ -10,8 +10,9 @@ class SpendingController extends Controller
     {
         $allSpendings = Spending::latest()->paginate(3);
         $totalSum = Spending::totalSum();
+        $todaySpendings = Spending::todaySpendings();
 
-        return view('welcome', compact('allSpendings', 'totalSum'));
+        return view('welcome', compact('allSpendings', 'totalSum', 'todaySpendings'));
     }
 
     function store(Request $request)

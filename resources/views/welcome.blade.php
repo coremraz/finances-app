@@ -2,11 +2,10 @@
 
 @section('content')
     <x-searchSpending/>
-    <x-totalSpendings total="{{$totalSum}}"/>
+    <x-totalSpendings total="{{$totalSum}}" todaySpendings="{{$todaySpendings}}"/>
     <x-filters/>
     @foreach($allSpendings as $spending)
-        <x-spending name="{{ $spending->name }}" cost="{{ $spending->cost }}" date="{{ $spending->created_at }}"
-                    category="{{$spending->category}}" id="{{$spending->id}}"/>
+        <x-spending spending="{{ $spending}}"/>
     @endforeach
     <x-addSpending/>
 @endsection

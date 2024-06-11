@@ -8,7 +8,8 @@
                 @method("DELETE")
                 <button class="text-red-500 cursor-pointer">✏️</button>
             </form>
-            <form action="{{route("delete", $id)}}" >
+            <form action="{{route("delete", $id)}}"  method="post">
+                @csrf
                 @method("DELETE")
                 <button class="text-red-500 cursor-pointer">X</button>
             </form>
