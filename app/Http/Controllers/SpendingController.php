@@ -66,8 +66,7 @@ class SpendingController extends Controller
     function search(Request $request)
     {
         //победить sqlite не удалось, никакие способы поиска без учета регистра не работают
-
-        $allSpendings = Spending::where('name', 'like', '%'. $this->mb_ucfirst($request->by) . "%")->get()->WithQueryParamet;
+        $allSpendings = Spending::where('name', 'like', '%'. $this->mb_ucfirst($request->by) . "%")->get();
         $totalSum = 1337;
 
         return view('welcome', compact('allSpendings', 'totalSum'));
