@@ -12,7 +12,7 @@ class SpendingController extends Controller
         $totalSum = Spending::totalSum();
         $todaySpendings = Spending::todaySpendings();
 
-        return view('welcome', compact('allSpendings', 'totalSum', 'todaySpendings'));
+        return view('welcome', compact('allSpendings'));
     }
 
     function store(Request $request)
@@ -35,7 +35,7 @@ class SpendingController extends Controller
        return redirect('/');
     }
 
-    function sort(Request $request)
+    function sort(Request $request, Spending $spending)
     {
         $sortBy = $request->filter;
 
@@ -48,8 +48,6 @@ class SpendingController extends Controller
         } else if ($sortBy == "dateDesc") {
             $allSpendings = Spending::latest()->paginate(5)->SortByDesc('created_at');
         } else {
-            // Handle the case where $sortBy is not "asc" or "desc"
-            // You might want to return an error or default sorting
             $allSpendings = Spending::latest()->paginate(3);
         }
         $totalSum = Spending::sum('cost');
