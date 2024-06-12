@@ -10,5 +10,5 @@ Route::post('/register', [RegisterUserController::class, 'store'])->name('regist
 Route::get('/search', [SpendingController::class, 'search'])->name('search');
 Route::post('/store', [SpendingController::class, 'store'])->name('store');
 Route::get('/{filter}', [SpendingController::class, 'sort'])->name('sort');
-Route::delete('/{id}/delete', [SpendingController::class, 'delete'])->name('delete');
+Route::delete('/{spending}/delete', [SpendingController::class, 'delete'])->name('delete');
 
