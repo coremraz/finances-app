@@ -17,5 +17,5 @@
     </div>
     <span class="text-emerald-500 font-bold">{{$spending->cost . "₽"}}</span>
     <span class="text-gray-400 font-bold">{{$spending->category}}</span>
-    <span class="text-gray-600 font-bold">{{date('d-m-Y H:i', strtotime($spending->date))}}</span>
+    <span class="text-gray-600 font-bold">{{date('d-m-Y H:i', strtotime($spending->created_at))}}</span>
 </div>

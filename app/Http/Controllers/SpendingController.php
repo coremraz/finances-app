@@ -9,8 +9,6 @@ class SpendingController extends Controller
     function index()
     {
         $allSpendings = Spending::latest()->paginate(3);
-        $totalSum = Spending::totalSum();
-        $todaySpendings = Spending::todaySpendings();
 
         return view('welcome', compact('allSpendings'));
     }
@@ -35,7 +33,7 @@ class SpendingController extends Controller
        return redirect('/');
     }
 
-    function sort(Request $request, Spending $spending)
+    function sort(Request $request)
     {
         $sortBy = $request->filter;
 
@@ -52,7 +50,7 @@ class SpendingController extends Controller
         }
         $totalSum = Spending::sum('cost');
 
-        return view('welcome', compact('allSpendings', 'totalSum'));
+        return view('welcome', compact('allSpendings'));
     }
 
     function delete(Spending $spending)
@@ -67,7 +65,7 @@ class SpendingController extends Controller
         $allSpendings = Spending::where('name', 'like', '%'. $this->mb_ucfirst($request->by) . "%")->get();
         $totalSum = 1337;
 
-        return view('welcome', compact('allSpendings', 'totalSum'));
+        return view('welcome', compact('allSpendings'));
     }
 
     private  function mb_ucfirst($string) {
