@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class RegisterUserController extends Controller
+class LoginUserController extends Controller
 {
     public function index()
     {
-        return view('register');
+        return view('login');
     }
 
     public function store(Request $request)
@@ -21,8 +20,7 @@ class RegisterUserController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $user = User::create($validated);
-        Auth::login($user);
+        User::create($validated);
 
         return redirect('/');
     }
