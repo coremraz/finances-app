@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationData;
+use Illuminate\Validation\ValidationException;
 
 class LoginUserController extends Controller
 {
@@ -17,11 +19,17 @@ class LoginUserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|min:6',
+            'username' => ['required'],
+            'password' => ['required'],
         ]);
 
-        User::create($validated);
+        if (!Auth::attempt($validated)) {
+            throw ValidationException::withMessages([
+                'username' => 'Sorry, incorrect login or password'
+            ]);
+        }
+
+        request()->session()->regenerate();
 
         return redirect('/');
     }
