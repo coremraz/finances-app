@@ -1,4 +1,4 @@
-@extends('layouts.base');
+@extends('layouts.base')
 
 @section('content')
     <form action="{{route('register')}}" method="post">

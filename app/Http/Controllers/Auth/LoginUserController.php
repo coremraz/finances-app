@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginUserController extends Controller
 {
@@ -23,5 +24,12 @@ class LoginUserController extends Controller
         User::create($validated);
 
         return redirect('/');
+    }
+
+    public function destroy()
+    {
+        Auth::logout();
+
+        return redirect('login');
     }
 }

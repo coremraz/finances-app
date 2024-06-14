@@ -11,6 +11,7 @@ Route::get('/register', [RegisterUserController::class, 'index'])->name('registe
 Route::post('/register', [RegisterUserController::class, 'store'])->name('register');
 Route::get('/login', [LoginUserController::class, 'index'])->name('login');
 Route::post('/login', [LoginUserController::class, 'store'])->name('login');
+Route::get('/logout', [LoginUserController::class, 'destroy'])->name('logout');
 //Spendings
 Route::get('/search', [SpendingController::class, 'search'])->name('search');
 Route::post('/store', [SpendingController::class, 'store'])->name('store');

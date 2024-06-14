@@ -9,6 +9,9 @@
 @guest()
 <header>Register now!</header>
 @endguest
+@auth()
+    <header>Hello user! <x-button><a  href="{{route('logout')}}">Logout</a></x-button></header>
+@endauth
 <body class="flex items-center flex-col">
     @yield('content')
 </body>
