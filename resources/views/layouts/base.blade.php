@@ -7,7 +7,7 @@
     <title>Laravel</title>
 </head>
 @guest()
-<header><x-button><a  href="{{route('login')}}">login</a></x-button><x-button><a  href="{{route('register')}}"><register></register></a></x-button></header>
+<header><x-button><a  href="{{route('login')}}">login</a></x-button><x-button><a  href="{{route('register')}}">Register</a></x-button></header>
 @endguest
 @auth()
     <header>Hello user! <x-button><a  href="{{route('logout')}}">Logout</a></x-button></header>

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
-use App\Models\Spending;
+use App\Models\Spending;use Illuminate\Support\Facades\Auth;
 class SpendingController extends Controller
 {
     function index()
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
         $allSpendings = Spending::latest()->paginate(3);
 
         return view('welcome', compact('allSpendings'));
