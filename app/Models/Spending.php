@@ -12,9 +12,9 @@ class Spending extends Model
 
     protected $guarded = [];
 
-    public static function totalSum()
+    public static function totalSum($id)
     {
-        return self::sum('cost');
+        return self::where('user_id', $id)->sum('cost');
     }
 
     public static function todaySpendings()
