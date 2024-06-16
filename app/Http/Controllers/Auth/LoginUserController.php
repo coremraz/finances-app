@@ -30,6 +30,7 @@ class LoginUserController extends Controller
         }
 
         request()->session()->regenerate();
+        session()->put('username', "$request->username");
 
         return redirect('/');
     }

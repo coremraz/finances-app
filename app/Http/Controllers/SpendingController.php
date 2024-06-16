@@ -13,7 +13,6 @@ class SpendingController extends Controller
             return redirect('/login');
         }
         $allSpendings = Spending::latest()->paginate(3);
-
         return view('welcome', compact('allSpendings'));
     }
 
