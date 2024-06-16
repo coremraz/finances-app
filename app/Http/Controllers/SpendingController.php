@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Spending;use Illuminate\Support\Facades\Auth;
 class SpendingController extends Controller
@@ -12,7 +13,9 @@ class SpendingController extends Controller
         if (Auth::guest()) {
             return redirect('/login');
         }
-        $allSpendings = Spending::latest()->paginate(3);
+        $user = User::find(session()->get('id'));
+        $allSpendings = $user->spendings()->get();
+
         return view('welcome', compact('allSpendings'));
     }
 
@@ -22,13 +25,14 @@ class SpendingController extends Controller
         $request->validate([
            'cost' => 'required|numeric',
            'name' => 'required',
-            'category' => 'required'
+            'category' => 'required',
         ]);
 
         $spending->fill([
            'name' =>  $this->mb_ucfirst($request->name),
            'cost' =>  $request->cost,
            'category' =>  $request->category,
+            'user_id' => session()->get('id'),
         ]);
         $spending->save();
 

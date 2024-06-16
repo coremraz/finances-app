@@ -14,6 +14,9 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
+    public function spendings() {
+        return $this->hasMany(Spending::class);
+    }
     protected function casts(): array
     {
         return [

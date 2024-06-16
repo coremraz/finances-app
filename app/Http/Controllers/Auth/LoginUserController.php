@@ -30,7 +30,9 @@ class LoginUserController extends Controller
         }
 
         request()->session()->regenerate();
-        session()->put('username', "$request->username");
+
+        session()->put('username', $request->username);
+        session()->put('id', User::where('username', session()->get('username'))->first()->id);
 
         return redirect('/');
     }
