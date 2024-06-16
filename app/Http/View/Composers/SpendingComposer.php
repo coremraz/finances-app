@@ -9,6 +9,6 @@ class SpendingComposer
     public function compose(View $view)
     {
         $view->with('totalSum', Spending::totalSum(session()->get('id')));
-        $view->with('todaySpendings', Spending::todaySpendings());
+        $view->with('todaySpendings', Spending::todaySpendings(session()->get('id')));
     }
 }
