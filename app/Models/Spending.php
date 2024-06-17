@@ -17,6 +17,7 @@ class Spending extends Model
         return self::where('user_id', $id)->sum('cost');
     }
 
+
     public static function todaySpendings($id)
     {
         return self::where('user_id', $id)->whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->sum("cost");
