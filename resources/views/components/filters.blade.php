@@ -1,10 +1,11 @@
 <div class="flex">
-    <div>
-        <x-button><a href="{{ route('sort', ['filter' => 'desc']) }}">⬇️</a></x-button>
-        <x-button><a href="{{ route('sort', ['filter' => 'asc']) }}">⬆️</a>️</x-button>
-    </div>
-    <div>
-        <x-button><a href="{{ route('sort', ['filter' => 'dateAsc']) }}">Date ⬆️</a>️</x-button>
-        <x-button><a href="{{ route('sort', ['filter' => 'dateDesc']) }}">Date ⬇️️</a>️</x-button>
-    </div>
+    <form action="{{ route('sort') }}" method="get">
+    <x-select name="filter">
+        <option value="desc">Sort by price⬇️</option>
+        <option value="asc">Sort by price⬆️</option>
+        <option value="dateAsc">Date⬇️</option>
+        <option value="dateDesc">Date⬆️</option>
+    </x-select>
+        <x-button type="submit">Filter</x-button>
+    </form>
 </div>

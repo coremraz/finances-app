@@ -43,21 +43,21 @@ class SpendingController extends Controller
     function sort(Request $request)
     {
         $sortBy = $request->filter;
+        $user = User::find(session()->get('id'));
 
         if ($sortBy == "asc") {
-            $allSpendings = Spending::latest()->paginate(5)->SortBy('cost');
+            $userSpendings = $user->spendings()->orderBy('cost', 'asc')->simplePaginate(3);
         } else if ($sortBy == "desc") {
-            $allSpendings = Spending::latest()->paginate(5)->SortByDesc('cost');
+            $userSpendings = $user->spendings()->orderBy('cost', 'desc')->simplePaginate(3);
         } else if ($sortBy == "dateAsc") {
-            $allSpendings = Spending::latest()->paginate(5)->SortBy('created_at');
+            $userSpendings = $user->spendings()->orderBy('created_at', 'asc')->simplePaginate(3);
         } else if ($sortBy == "dateDesc") {
-            $allSpendings = Spending::latest()->paginate(5)->SortByDesc('created_at');
+            $userSpendings = $user->spendings()->orderBy('created_at', 'desc')->simplePaginate(3);
         } else {
-            $allSpendings = Spending::latest()->paginate(3);
+            $userSpendings = $user->spendings()->simplePaginate(3);
         }
-        $totalSum = Spending::sum('cost');
 
-        return view('welcome', compact('allSpendings'));
+        return view('welcome', compact('userSpendings'));
     }
 
     function delete(Spending $spending)

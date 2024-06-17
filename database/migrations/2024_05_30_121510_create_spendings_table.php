@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('cost');
+            $table->integer('cost');
             $table->string('category');
             $table->foreignIdFor(\App\Models\User::class);
         });
