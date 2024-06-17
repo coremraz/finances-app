@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Spending;use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+
 class SpendingController extends Controller
 {
     function index()
@@ -22,6 +24,8 @@ class SpendingController extends Controller
     function store(Request $request)
     {
         $spending = new Spending;
+        $user = User::find(session()->get('id'));
+
         $request->validate([
            'cost' => 'required|numeric',
            'name' => 'required',
@@ -29,11 +33,17 @@ class SpendingController extends Controller
         ]);
 
         $spending->fill([
-           'name' =>  $this->mb_ucfirst($request->name),
-           'cost' =>  $request->cost,
-           'category' =>  $request->category,
+            'name' =>  $this->mb_ucfirst($request->name),
+            'cost' =>  $request->cost,
+            'category' =>  $request->category,
             'user_id' => session()->get('id'),
         ]);
+
+        //Not allows add/edit spending for another user
+        if (!Gate::forUser($user)->allows('update-spending', $spending)) {
+            abort(403);
+        }
+
         $spending->save();
 
 
