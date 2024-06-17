@@ -7,6 +7,7 @@
     @foreach($userSpendings as $spending)
         <x-spending :spending="$spending" />
     @endforeach
+    {{$userSpendings->links()}}
     <x-addSpending/>
 @endsection
 

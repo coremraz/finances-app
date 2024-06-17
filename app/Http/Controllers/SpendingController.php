@@ -14,7 +14,7 @@ class SpendingController extends Controller
             return redirect('/login');
         }
         $user = User::find(session()->get('id'));
-        $userSpendings = $user->spendings()->get();
+        $userSpendings = $user->spendings()->simplePaginate(3);
 
         return view('welcome', compact('userSpendings'));
     }
