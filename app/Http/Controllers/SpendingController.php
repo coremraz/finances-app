@@ -39,7 +39,7 @@ class SpendingController extends Controller
             'user_id' => session()->get('id'),
         ]);
 
-        //Not allows add/edit spending for another user
+        //Not allows to add/edit spending for another user
         if (!Gate::forUser($user)->allows('update-spending', $spending)) {
             abort(403);
         }
@@ -55,16 +55,22 @@ class SpendingController extends Controller
         $sortBy = $request->filter;
         $user = User::find(session()->get('id'));
 
-        if ($sortBy == "asc") {
-            $userSpendings = $user->spendings()->orderBy('cost', 'asc')->simplePaginate(3);
-        } else if ($sortBy == "desc") {
-            $userSpendings = $user->spendings()->orderBy('cost', 'desc')->simplePaginate(3);
-        } else if ($sortBy == "dateAsc") {
-            $userSpendings = $user->spendings()->orderBy('created_at', 'asc')->simplePaginate(3);
-        } else if ($sortBy == "dateDesc") {
-            $userSpendings = $user->spendings()->orderBy('created_at', 'desc')->simplePaginate(3);
-        } else {
-            $userSpendings = $user->spendings()->simplePaginate(3);
+        switch ($sortBy) {
+            case "asc":
+                $userSpendings = $user->spendings()->orderBy('cost', 'asc')->simplePaginate(3);
+                break;
+            case "desc":
+                $userSpendings = $user->spendings()->orderBy('cost', 'desc')->simplePaginate(3);
+                break;
+            case "dateAsc":
+                $userSpendings = $user->spendings()->orderBy('created_at', 'asc')->simplePaginate(3);
+                break;
+            case "dateDesc":
+                $userSpendings = $user->spendings()->orderBy('created_at', 'desc')->simplePaginate(3);
+                break;
+            default:
+                $userSpendings = $user->spendings()->simplePaginate(3);
+                break;
         }
 
         return view('welcome', compact('userSpendings'));
