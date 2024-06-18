@@ -5,16 +5,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Spending;use Illuminate\Support\Facades\Auth;
+use App\Models\Spending;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class SpendingController extends Controller
 {
     function index()
     {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
         $user = User::find(session()->get('id'));
         $userSpendings = $user->spendings()->simplePaginate(3);
 
@@ -27,33 +25,41 @@ class SpendingController extends Controller
         $user = User::find(session()->get('id'));
 
         $request->validate([
-           'cost' => 'required|numeric',
-           'name' => 'required',
+            'cost' => 'required|numeric',
+            'name' => 'required',
             'category' => 'required',
         ]);
 
         $spending->fill([
-            'name' =>  $this->mb_ucfirst($request->name),
-            'cost' =>  $request->cost,
-            'category' =>  $request->category,
-            'user_id' => session()->get('id'),
+            'name' => $this->mb_ucfirst($request->name),
+            'cost' => $request->cost,
+            'category' => $request->category,
+            'user_id' => $request->userid,
         ]);
 
         //Not allows to add/edit spending for another user
-        if (!Gate::forUser($user)->allows('update-spending', $spending)) {
-            abort(403);
-        }
+//        if (!Gate::forUser($user)->allows('update-spending', $spending)) {
+//            abort(403);
+//        }
 
         $spending->save();
 
 
-       return redirect('/');
+        return redirect('/');
     }
 
     function sort(Request $request)
     {
         $sortBy = $request->filter;
         $user = User::find(session()->get('id'));
+
+        if ($request->startDate && $request->endDate) {
+            $userSpendings = Spending::where('created_at', '>=', $request->startDate)
+                ->where('created_at', '<=', $request->endDate)
+                ->simplePaginate(3);
+
+            return view('welcome', compact('userSpendings'));
+        }
 
         switch ($sortBy) {
             case "asc":
@@ -85,16 +91,17 @@ class SpendingController extends Controller
     function search(Request $request)
     {
         //победить sqlite не удалось, никакие способы поиска без учета регистра не работают
-        $allSpendings = Spending::where('name', 'like', '%'. $this->mb_ucfirst($request->by) . "%")->get();
+        $allSpendings = Spending::where('name', 'like', '%' . $this->mb_ucfirst($request->by) . "%")->get();
         $totalSum = 1337;
 
         return view('welcome', compact('allSpendings'));
     }
 
-    private  function mb_ucfirst($string) {
+    private function mb_ucfirst($string)
+    {
         /**
          * Мультибайтовый аналог ucfirst
-         * @param  string Строка в мультибайтовой кодировке
+         * @param string Строка в мультибайтовой кодировке
          * @return string Строка с первым символом, переведенным в верхний регистр
          */
 
