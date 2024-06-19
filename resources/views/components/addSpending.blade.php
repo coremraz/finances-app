@@ -1,7 +1,7 @@
 @props(['total' => '1337'])
 
 <form class="flex flex-col items-center w-56 bg-gray-50 drop-shadow-lg rounded-xl m-4" action="{{route('store')}}" method="post">
-    @csrf {{ csrf_field() }}
+    @csrf
     <label class="text-gray-700">Name:</label>
     <x-input type="text" name="name"/>
     <x-error error="name"/>

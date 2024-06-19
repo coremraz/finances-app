@@ -22,7 +22,6 @@ class SpendingController extends Controller
     function store(Request $request)
     {
         $spending = new Spending;
-        $user = User::find(session()->get('id'));
 
         $request->validate([
             'cost' => 'required|numeric',
@@ -36,11 +35,6 @@ class SpendingController extends Controller
             'category' => $request->category,
             'user_id' => session()->get('id'),
         ]);
-
-        //Not allows to add/edit spending for another user
-//        if (!Gate::forUser($user)->allows('update-spending', $spending)) {
-//            abort(403);
-//        }
 
         $spending->save();
 
@@ -92,7 +86,6 @@ class SpendingController extends Controller
     {
         //победить sqlite не удалось, никакие способы поиска без учета регистра не работают
         $allSpendings = Spending::where('name', 'like', '%' . $this->mb_ucfirst($request->by) . "%")->get();
-        $totalSum = 1337;
 
         return view('welcome', compact('allSpendings'));
     }
