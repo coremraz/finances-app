@@ -24,6 +24,11 @@ class RegisterUserController extends Controller
         $user = User::create($validated);
         Auth::login($user);
 
+        request()->session()->regenerate();
+
+        session()->put('username', $request->username);
+        session()->put('id', User::where('username', session()->get('username'))->first()->id);
+
         return redirect('/');
     }
 }

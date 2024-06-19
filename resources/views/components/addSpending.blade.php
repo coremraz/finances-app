@@ -14,7 +14,6 @@
         <option value="Техника">Техника</option>
         <option value="Напитки">Напитки</option>
     </x-select>
-    <input name="userid" value="2" />
     <x-button type="submit">Add</x-button>
 </form>
 

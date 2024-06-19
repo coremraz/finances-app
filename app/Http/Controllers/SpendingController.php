@@ -34,7 +34,7 @@ class SpendingController extends Controller
             'name' => $this->mb_ucfirst($request->name),
             'cost' => $request->cost,
             'category' => $request->category,
-            'user_id' => $request->userid,
+            'user_id' => session()->get('id'),
         ]);
 
         //Not allows to add/edit spending for another user
