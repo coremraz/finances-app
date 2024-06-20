@@ -17,6 +17,8 @@ Route::group(['middleware' => 'auth', 'can:update-spending, spending'], function
     Route::get('/', [SpendingController::class, 'index'])->name('index');
     //Spendings
     Route::post('/store', [SpendingController::class, 'store'])->name('store');
+    Route::get('/{spending}/edit', [SpendingController::class, 'edit'])->name('edit');
+    Route::patch('/{id}/update', [SpendingController::class, 'update'])->name('update');
     Route::delete('/{spending}/delete', [SpendingController::class, 'delete'])->name('delete');
     Route::get('/search', [SpendingController::class, 'search'])->name('search');
     Route::get('/sort', [SpendingController::class, 'sort'])->name('sort');

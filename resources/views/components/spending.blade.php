@@ -4,8 +4,7 @@
     <div class="flex justify-between">
         <h1 class="text-gray-700 font-bold mx-auto">{{$spending->name}}</h1>
         <div class="flex justify-between ml-auto">
-            <form action="/{{$spending->id}}/delete" >
-                @method("DELETE")
+            <form action="{{route("edit",$spending)}}" method="get">
                 <button class="text-red-500 cursor-pointer">✏️</button>
             </form>
             <form action="{{route("delete",$spending)}}" method="post">

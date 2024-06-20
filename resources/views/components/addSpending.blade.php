@@ -9,7 +9,7 @@
     <x-input type="text" name="cost"/>
     <x-error error="cost"/>
     <label class="text-gray-700">Category:</label>
-    <x-category/>
+    <x-categories/>
     <x-button type="submit">Add</x-button>
 </form>
 

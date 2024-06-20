@@ -42,6 +42,47 @@ class SpendingController extends Controller
         return redirect('/');
     }
 
+    function edit(Spending $spending)
+    {
+        return view('edit', compact('spending'));
+    }
+
+    function update(Request $request)
+    {
+        $spending = Spending::find($request->id);
+
+        $request->validate([
+            'cost' => 'required|numeric',
+            'name' => 'required',
+            'category' => 'required',
+        ]);
+
+        $spending->fill([
+            'name' => $this->mb_ucfirst($request->name),
+            'cost' => $request->cost,
+            'category' => $request->category,
+            'user_id' => session()->get('id'),
+        ]);
+
+        $spending->save();
+
+        return redirect("/");
+    }
+
+    function delete(Spending $spending)
+    {
+        $spending->delete();
+        return redirect('/');
+    }
+
+    function search(Request $request)
+    {
+        //победить sqlite не удалось, никакие способы поиска без учета регистра не работают
+        $allSpendings = Spending::where('name', 'like', '%' . $this->mb_ucfirst($request->by) . "%")->get();
+
+        return view('welcome', compact('allSpendings'));
+    }
+
     function sort(Request $request)
     {
         $sortBy = $request->filter;
@@ -75,21 +116,6 @@ class SpendingController extends Controller
 
         return view('welcome', compact('userSpendings'));
     }
-
-    function delete(Spending $spending)
-    {
-        $spending->delete();
-        return redirect('/');
-    }
-
-    function search(Request $request)
-    {
-        //победить sqlite не удалось, никакие способы поиска без учета регистра не работают
-        $allSpendings = Spending::where('name', 'like', '%' . $this->mb_ucfirst($request->by) . "%")->get();
-
-        return view('welcome', compact('allSpendings'));
-    }
-
     private function mb_ucfirst($string)
     {
         /**
