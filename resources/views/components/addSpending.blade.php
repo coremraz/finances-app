@@ -9,11 +9,7 @@
     <x-input type="text" name="cost"/>
     <x-error error="cost"/>
     <label class="text-gray-700">Category:</label>
-    <x-select name="category">
-        <option value="Еда">Еда</option>
-        <option value="Техника">Техника</option>
-        <option value="Напитки">Напитки</option>
-    </x-select>
+    <x-category/>
     <input name="userid" value="2" />
     <x-button type="submit">Add</x-button>
 </form>
