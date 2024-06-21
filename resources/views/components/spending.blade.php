@@ -1,6 +1,6 @@
 @props(['spending'])
 
-<div class="flex flex-col items-center w-52 bg-gray-50 drop-shadow-lg rounded-xl m-4 p-2">
+<div class="flex flex-col items-center w-59 bg-gray-50 drop-shadow-lg rounded-xl m-4 p-2">
     <div class="flex justify-between">
         <h1 class="text-gray-700 font-bold mx-auto">{{$spending->name}}</h1>
         <div class="flex justify-between ml-auto">

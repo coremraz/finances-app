@@ -1,11 +1,10 @@
 @extends('layouts.base')
 
 @section('content')
-    <x-searchSpending :totalSum="$totalSum" :todaySpendings="$todaySpendings"/>
+    <x-searchSpending :totalSum="$totalSum"
+                      :todaySpendings="$todaySpendings"
+                      :userSpendings="$userSpendings"/>
     <x-filters/>
-    @foreach($userSpendings as $spending)
-        <x-spending :spending="$spending" />
-    @endforeach
     {{$userSpendings->links() }}
     <x-addSpending/>
 @endsection
