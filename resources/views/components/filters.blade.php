@@ -1,6 +1,7 @@
 <div class="flex">
     <form action="{{ route('sort') }}" method="get">
         <x-select name="filter">
+            <option value="default">Default</option>
 {{--            First - what to sort, Second - asc/desc--}}
             <option value="cost,desc">Sort by price⬇️</option>
             <option value="cost,asc">Sort by price⬆️</option>

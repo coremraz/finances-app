@@ -86,23 +86,26 @@ class SpendingController extends Controller
     function sort(Request $request)
     {
         $user = User::find(session()->get('id'));
+
         $allUserSpendings = $user->spendings();
-        $sortBy = explode(",", $request->filter);
 
-        if ($request->day) {
-            $userSpendings = $allUserSpendings->whereDate('created_at', '=', $request->day)
-                ->orderBy($sortBy[0], $sortBy[1])
-                ->simplePaginate(3)
-                ->withQueryString();
+        $filter = $request->input('filter', 'default');
+        $day = $request->input('day');
 
-            return view('welcome', compact('userSpendings'));
+        $query = $allUserSpendings;
 
-        } else {
-            //First - what to sort, Second - asc/desc
-            $userSpendings = $allUserSpendings->orderBy($sortBy[0], $sortBy[1])->simplePaginate(3)->withQueryString();
-
-            return view('welcome', compact('userSpendings'));
+        if ($filter !== 'default') {
+            [$sortBy, $sortDirection] = explode(',', $filter);
+            $query->orderBy($sortBy, $sortDirection);
         }
+
+        if ($day) {
+            $query->whereDate('created_at', '=', $day);
+        }
+
+        $userSpendings = $query->paginate(3)->withQueryString();
+
+        return view('welcome', compact('userSpendings'));
     }
 
     private function mb_ucfirst($string)
