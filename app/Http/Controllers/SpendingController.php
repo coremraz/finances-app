@@ -85,37 +85,26 @@ class SpendingController extends Controller
 
     function sort(Request $request)
     {
-        $sortBy = $request->filter;
         $user = User::find(session()->get('id'));
+        $allUserSpendings = $user->spendings();
+        $sortBy = explode(",", $request->filter);
 
-        if ($request->startDate && $request->endDate) {
-            $userSpendings = Spending::where('created_at', '>=', $request->startDate)
-                ->where('created_at', '<=', $request->endDate)
-                ->simplePaginate(3);
+        if ($request->day) {
+            $userSpendings = $allUserSpendings->whereDate('created_at', '=', $request->day)
+                ->orderBy($sortBy[0], $sortBy[1])
+                ->simplePaginate(3)
+                ->withQueryString();
+
+            return view('welcome', compact('userSpendings'));
+
+        } else {
+            //First - what to sort, Second - asc/desc
+            $userSpendings = $allUserSpendings->orderBy($sortBy[0], $sortBy[1])->simplePaginate(3)->withQueryString();
 
             return view('welcome', compact('userSpendings'));
         }
-
-        switch ($sortBy) {
-            case "asc":
-                $userSpendings = $user->spendings()->orderBy('cost', 'asc')->simplePaginate(3);
-                break;
-            case "desc":
-                $userSpendings = $user->spendings()->orderBy('cost', 'desc')->simplePaginate(3);
-                break;
-            case "dateAsc":
-                $userSpendings = $user->spendings()->orderBy('created_at', 'asc')->simplePaginate(3);
-                break;
-            case "dateDesc":
-                $userSpendings = $user->spendings()->orderBy('created_at', 'desc')->simplePaginate(3);
-                break;
-            default:
-                $userSpendings = $user->spendings()->simplePaginate(3);
-                break;
-        }
-
-        return view('welcome', compact('userSpendings'));
     }
+
     private function mb_ucfirst($string)
     {
         /**
@@ -127,4 +116,5 @@ class SpendingController extends Controller
         $string = mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1);
         return $string;
     }
+
 }

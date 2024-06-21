@@ -1,16 +1,15 @@
 <div class="flex">
     <form action="{{ route('sort') }}" method="get">
         <x-select name="filter">
-            <option value="desc">Sort by price⬇️</option>
-            <option value="asc">Sort by price⬆️</option>
-            <option value="dateAsc">Date⬇️</option>
-            <option value="dateDesc">Date⬆️</option>
+{{--            First - what to sort, Second - asc/desc--}}
+            <option value="cost,desc">Sort by price⬇️</option>
+            <option value="cost,asc">Sort by price⬆️</option>
+            <option value="created_at,desc">Date⬇️</option>
+            <option value="created_at,asc">Date⬆️</option>
         </x-select>
         <div class="flex flex-col">
-            <label>From:</label>
-            <x-input type="date" name="startDate"></x-input>
-            <label>To:</label>
-            <x-input type="date" name="endDate"></x-input>
+            <label>Specific day:</label>
+            <x-input type="date" name="day"></x-input>
         </div>
         <x-button type="submit">Filter</x-button>
     </form>
