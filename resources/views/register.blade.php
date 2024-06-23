@@ -8,7 +8,7 @@
             <x-error error="username"/>
             <x-input type="password" placeholder="Password" name="password"/>
             <x-error error="password"/>
-            <x-button type="submit">Let's count your finances</x-button>
+            <x-button type="submit">Register</x-button>
         </div>
     </form>
 @endsection
