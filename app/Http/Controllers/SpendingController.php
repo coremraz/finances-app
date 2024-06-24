@@ -85,14 +85,20 @@ class SpendingController extends Controller
 
     function sort(Request $request)
     {
+
         $user = User::find(session()->get('id'));
 
         $allUserSpendings = $user->spendings();
 
         $filter = $request->input('filter', 'default');
         $day = $request->input('day');
+        $category = $request->input('category');
 
         $query = $allUserSpendings;
+
+        if ($category !== 'category') {
+            $query->where('category', '=', $category);
+        }
 
         if ($filter !== 'default') {
             [$sortBy, $sortDirection] = explode(',', $filter);
@@ -103,7 +109,7 @@ class SpendingController extends Controller
             $query->whereDate('created_at', '=', $day);
         }
 
-        $userSpendings = $query->paginate(3)->withQueryString();
+        $userSpendings = $query->simplePaginate(3)->withQueryString();
 
         return view('welcome', compact('userSpendings'));
     }
