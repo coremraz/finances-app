@@ -4,13 +4,15 @@
     <div class="flex justify-between">
         <h1 class="text-gray-700 font-bold mx-auto">{{$spending->name}}</h1>
         <div class="flex justify-between ml-auto">
-            <form action="{{route("edit", $spending)}}" method="get">
-                <button class="text-red-500 cursor-pointer">✏️</button>
+{{--            Do it yesterday--}}
+            <form action="{{route("delete",$spending)}}" method="get">
+                @csrf
+                <x-button class="text-red-500 cursor-pointer" type="submit">✏️</x-button>
             </form>
             <form action="{{route("delete",$spending)}}" method="post">
                 @csrf
                 @method("DELETE")
-                <button class="text-red-500 cursor-pointer">X</button>
+                <x-button class="text-red-500 cursor-pointer" type="submit">X</x-button>
             </form>
         </div>
     </div>
